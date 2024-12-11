@@ -1,0 +1,16 @@
+# Ignore external files
+build/build_files/obj/*
+build/external/*
+
+#vscode
+.vscode
+
+#binaries
+*.o
+*.exe
+*.a
+*.bc
+*.so
+*.so.*
+*.dll
+*.lib
