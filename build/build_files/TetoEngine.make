@@ -1,3 +1,6 @@
+#NOTE: GENERATING STATIC LIB USING .lib NOT .a
+#I dislike the naming convention differences, building $(AR), but requires raylib linking
+
 ifndef config
   config=debug_x64
 endif
@@ -104,8 +107,8 @@ endif
 GENERATED :=
 OBJECTS :=
 
-#GENERATED += $(OBJDIR)/GameInstance.o
-#OBJECTS += $(OBJDIR)/GameInstance.o
+GENERATED += $(OBJDIR)/GameWindow.o
+OBJECTS += $(OBJDIR)/GameWindow.o
 # Rules
 # #############################################
 all: $(TARGET)
@@ -169,6 +172,9 @@ SRC_FOLDER = ../../proj/TetoEngine
 GLOBAL_INCLUDE = $(SRC_FOLDER)/include
 	
 #empty but put here
+$(OBJDIR)/GameWindow.o: $(SRC_FOLDER)/window/GameWindow.cpp
+	@echo "$(notdir $<)"
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(GLOBAL_INCLUDE)/window -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 
 -include $(OBJECTS:%.o=%.d)
 ifneq (,$(PCH))

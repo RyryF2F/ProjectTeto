@@ -1,5 +1,6 @@
 /**
  * WIP
+ * For handling all registration of tracked objects, e.g. textures, etc.
  */
 #pragma once
 
@@ -7,11 +8,9 @@
 #include <memory>
 #include "unordered_map"
 
-namespace pmc
+namespace teto
 {
     
-
-
     /**
      * Used with a tracked enum, etc.
      */
@@ -36,24 +35,22 @@ namespace pmc
     class IndexRegistry : public Registry<int,T>
     {
     };
-
-
 }
 
 template <typename K, typename T>
-void pmc::Registry<K,T>::clear()
+void teto::Registry<K,T>::clear()
 {
     registry.clear();
 }
 
 template <typename K, typename T>
-T& pmc::Registry<K,T>::get(K val)
+T& teto::Registry<K,T>::get(K val)
 {
     return registry.at(val);
 }
 
 template <typename K, typename T>
-void pmc::Registry<K,T>::add(K key, T val)
+void teto::Registry<K,T>::add(K key, T val)
 {
     registry.insert(key,val);
 }
