@@ -11,7 +11,7 @@ namespace teto
     {
         public:
             Texture(Texture2D rayTex) : _texture(rayTex){};
-            ~Texture(){};
+            ~Texture(){ UnloadTexture(_texture);};
 
             Texture(const Texture&) = delete;
             Texture& operator = (const Texture&) = delete;

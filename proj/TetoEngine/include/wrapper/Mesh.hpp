@@ -8,7 +8,7 @@ namespace teto
     {
         public:
             Mesh(::Mesh rayMesh) : _mesh(rayMesh){};
-            ~Mesh(){};
+            ~Mesh(){UnloadMesh(_mesh);};
 
             Mesh(const Mesh&) = delete;
             Mesh& operator = (const Mesh&) = delete;
