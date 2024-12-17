@@ -1,16 +1,16 @@
-#include "include/window/GameWindow.hpp"
+#include "include/window/Window.hpp"
 
-teto::GameWindow::GameWindow()
+teto::Window::Window()
 {
 
 }
 
-teto::GameWindow::~GameWindow()
+teto::Window::~Window()
 {
     CloseWindow();
 }
 
-int teto::GameWindow::run()
+int teto::Window::run()
 {
     updateConfigFlags();
     TraceLog(LOG_INFO, "preInit");
@@ -27,7 +27,7 @@ int teto::GameWindow::run()
     return 0;
 }
 
-int teto::GameWindow::draw()
+int teto::Window::draw()
 {
     BeginDrawing();
     onDraw();
@@ -35,25 +35,25 @@ int teto::GameWindow::draw()
     return 0;
 }
 
-void teto::GameWindow::preRun()
+void teto::Window::preRun()
 {
 }
 
-int teto::GameWindow::onUpdate()
+int teto::Window::onUpdate()
 {
     return 0;
 }
-int teto::GameWindow::onDraw()
-{
-    return 0;
-}
-
-int teto::GameWindow::postRun()
+int teto::Window::onDraw()
 {
     return 0;
 }
 
-void teto::GameWindow::updateConfigFlags()
+int teto::Window::postRun()
+{
+    return 0;
+}
+
+void teto::Window::updateConfigFlags()
 {
     unsigned int FLAGS = 0;
 
@@ -66,38 +66,38 @@ void teto::GameWindow::updateConfigFlags()
 
 
 /* GETTERS */
-std::set<ConfigFlags> const& teto::GameWindow::getConfigFlags()
+std::set<ConfigFlags> const& teto::Window::getConfigFlags()
 {
     return this->WIN_CONFIG_FLAGS;
 }
 
-std::string const& teto::GameWindow::getWinName()
+std::string const& teto::Window::getWinName()
 {
     return this->WIN_NAME;
 }
 
-Vector2 const& teto::GameWindow::getWinSize()
+Vector2 const& teto::Window::getWinSize()
 {
     return this->WIN_SIZE;
 }
 
 
 /* SETTERS */
-void teto::GameWindow::setConfigFlags(std::set<ConfigFlags> configFlags)
+void teto::Window::setConfigFlags(std::set<ConfigFlags> configFlags)
 {
     this->WIN_CONFIG_FLAGS = configFlags;
 }
-void teto::GameWindow::setWinName(std::string winName)
+void teto::Window::setWinName(std::string winName)
 {
     this->WIN_NAME = winName;
 }
-void teto::GameWindow::setWinSize(Vector2 winSize)
+void teto::Window::setWinSize(Vector2 winSize)
 {
     this->WIN_SIZE = winSize;
 }
 
 /* WIN FLAG HELPERS*/
-bool teto::GameWindow::hasFlag(ConfigFlags const& configFlag)
+bool teto::Window::hasFlag(ConfigFlags const& configFlag)
 {
     if (WIN_CONFIG_FLAGS.find(configFlag) != WIN_CONFIG_FLAGS.end())
     {
@@ -106,13 +106,13 @@ bool teto::GameWindow::hasFlag(ConfigFlags const& configFlag)
     return false;
 }
 
-bool teto::GameWindow::addConfigFlag(ConfigFlags configFlag)
+bool teto::Window::addConfigFlag(ConfigFlags configFlag)
 {
    std::pair<std::set<ConfigFlags>::iterator,bool> ret = this->WIN_CONFIG_FLAGS.insert(configFlag);
    return ret.second;
 }
 
-bool teto::GameWindow::removeConfigFlag(ConfigFlags configFlag)
+bool teto::Window::removeConfigFlag(ConfigFlags configFlag)
 {
     if (this->WIN_CONFIG_FLAGS.erase(configFlag) != 0)
     {

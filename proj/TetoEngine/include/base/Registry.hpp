@@ -4,7 +4,9 @@
  */
 #pragma once
 
-#include "pch.h"
+#include <string>
+#include "raylib.h"
+#include <utility>
 //#include <memory>
 #include <unordered_map>
 

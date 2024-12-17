@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include "../../base/Registry.hpp"
 #include "../../wrapper/Texture.hpp"
 
@@ -16,9 +17,9 @@ namespace teto
 
         void clear() override;
 
-        void load(K ind, ::Texture rayTex, bool waitTillReady);
+        void load(K key, ::Texture rayTex, bool waitTillReady = false);
 
-        void unlaod(K ind);
+        void unload(K ind);
     };
 
     typedef TextureRegistry<int> IndexedTextureRegistry;

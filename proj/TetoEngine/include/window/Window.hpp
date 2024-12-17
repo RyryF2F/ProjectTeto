@@ -8,18 +8,18 @@
 #include <string>
 
 /**
- * Class to create new controlled PM GameWindow
+ * Class to create new Window
  */
 namespace teto
 {
 
 
-    class GameWindow
+    class Window
     {
         public:
 
-        GameWindow();
-        ~GameWindow();
+        Window();
+        ~Window();
         
 
         int run(); /* Calls the Window to initalize and begins loop*/

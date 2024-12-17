@@ -107,8 +107,10 @@ endif
 GENERATED :=
 OBJECTS :=
 
-GENERATED += $(OBJDIR)/GameWindow.o
-OBJECTS += $(OBJDIR)/GameWindow.o
+GENERATED += $(OBJDIR)/Window.o
+OBJECTS += $(OBJDIR)/Window.o
+GENERATED += $(OBJDIR)/TextureRegistry.o
+OBJECTS += $(OBJDIR)/TextureRegistry.o
 # Rules
 # #############################################
 all: $(TARGET)
@@ -170,12 +172,15 @@ endif
 # #############################################
 SRC_FOLDER = ../../proj/TetoEngine
 GLOBAL_INCLUDE = $(SRC_FOLDER)/include
-	
+
 #empty but put here
-$(OBJDIR)/GameWindow.o: $(SRC_FOLDER)/window/GameWindow.cpp
+$(OBJDIR)/GameWindow.o: $(SRC_FOLDER)/window/Window.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(GLOBAL_INCLUDE)/window -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-
+$(OBJDIR)/TextureRegistry.o: $(SRC_FOLDER)/core/Texture/TextureRegistry.cpp
+	@echo "$(notdir $<)"
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(GLOBAL_INCLUDE)/core/Texture -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+	
 -include $(OBJECTS:%.o=%.d)
 ifneq (,$(PCH))
   -include $(PCH_PLACEHOLDER).d
