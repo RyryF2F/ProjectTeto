@@ -37,7 +37,7 @@ DEFINES += -DDEBUG -DPLATFORM_DESKTOP -DGRAPHICS_API_OPENGL_43 -D_WIN32
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -Wshadow -g -std=c99
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -Wshadow -g -std=c++17
 LIBS += ../../bin/Debug/TetoEngine.lib ../../bin/Debug/raylib.lib -lwinmm -lgdi32
-LDDEPS += ../../bin/Debug/raylib.lib ../../bin/Debug/TetoEngine.lib
+LDDEPS += ../../bin/Debug/TetoEngine.lib ../../bin/Debug/raylib.lib
 ALL_LDFLAGS += $(LDFLAGS) -L../../bin/Debug -L/usr/lib64 -m64
 
 else ifeq ($(config),debug_x86)
@@ -47,7 +47,7 @@ OBJDIR = obj/x86/Debug/TetoEditor
 DEFINES += -DDEBUG -DPLATFORM_DESKTOP -DGRAPHICS_API_OPENGL_43 -D_WIN32
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -Wshadow -g -std=c99
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -Wshadow -g -std=c++17
-LIBS += ../../bin/Debug/TetoEngine.lib ../../bin/Debug/raylib.lib -lwinmm -lgdi32
+LIBS += ../../bin/Debug/raylib.lib ../../bin/Debug/TetoEngine.lib -lwinmm -lgdi32
 LDDEPS += ../../bin/Debug/raylib.lib ../../bin/Debug/TetoEngine.lib
 ALL_LDFLAGS += $(LDFLAGS) -L../../bin/Debug -L/usr/lib32 -m32
 
@@ -58,7 +58,7 @@ OBJDIR = obj/ARM64/Debug/TetoEditor
 DEFINES += -DDEBUG -DPLATFORM_DESKTOP -DGRAPHICS_API_OPENGL_43 -D_WIN32
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -Wshadow -g -std=c99
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -Wshadow -g -std=c++17
-LIBS += ../../bin/Debug/TetoEngine.lib ../../bin/Debug/raylib.lib -lwinmm -lgdi32
+LIBS += ../../bin/Debug/raylib.lib ../../bin/Debug/TetoEngine.lib -lwinmm -lgdi32
 LDDEPS += ../../bin/Debug/raylib.lib ../../bin/Debug/TetoEngine.lib
 ALL_LDFLAGS += $(LDFLAGS) -L../../bin/Debug
 
@@ -69,7 +69,7 @@ OBJDIR = obj/x64/Release/TetoEditor
 DEFINES += -DNDEBUG -DPLATFORM_DESKTOP -DGRAPHICS_API_OPENGL_43 -D_WIN32
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -Wshadow -O2 -std=c99
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -Wshadow -O2 -std=c++17
-LIBS += ../../bin/Release/TetoEngine.lib ../../bin/Release/raylib.lib -lwinmm -lgdi32
+LIBS += ../../bin/Release/raylib.lib ../../bin/Release/TetoEngine.lib -lwinmm -lgdi32
 LDDEPS += ../../bin/Release/raylib.lib ../../bin/Release/TetoEngine.lib
 ALL_LDFLAGS += $(LDFLAGS) -L../../bin/Release -L/usr/lib64 -m64 -s
 
@@ -80,7 +80,7 @@ OBJDIR = obj/x86/Release/TetoEditor
 DEFINES += -DNDEBUG -DPLATFORM_DESKTOP -DGRAPHICS_API_OPENGL_43 -D_WIN32
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -Wshadow -O2 -std=c99
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -Wshadow -O2 -std=c++17
-LIBS += ../../bin/Release/TetoEngine.lib ../../bin/Release/raylib.lib -lwinmm -lgdi32
+LIBS += ../../bin/Release/raylib.lib ../../bin/Release/TetoEngine.lib -lwinmm -lgdi32
 LDDEPS += ../../bin/Release/raylib.lib ../../bin/Release/TetoEngine.lib
 ALL_LDFLAGS += $(LDFLAGS) -L../../bin/Release -L/usr/lib32 -m32 -s
 
@@ -91,7 +91,7 @@ OBJDIR = obj/ARM64/Release/TetoEditor
 DEFINES += -DNDEBUG -DPLATFORM_DESKTOP -DGRAPHICS_API_OPENGL_43 -D_WIN32
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -Wshadow -O2 -std=c99
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -Wshadow -O2 -std=c++17
-LIBS += ../../bin/Release/TetoEngine.lib ../../bin/Release/raylib.lib -lwinmm -lgdi32
+LIBS += ../../bin/Release/raylib.lib ../../bin/Release/TetoEngine.lib -lwinmm -lgdi32
 LDDEPS += ../../bin/Release/raylib.lib ../../bin/Release/TetoEngine.lib
 ALL_LDFLAGS += $(LDFLAGS) -L../../bin/Release -s
 
@@ -102,14 +102,13 @@ endif
 OBJECTS :=
 GENERATED :=
 
-OBJECTS += $(OBJDIR)/main.o
 GENERATED += $(OBJDIR)/main.o
+GENERATED += $(OBJDIR)/EditorWindow.o
+OBJECTS += $(OBJDIR)/main.o
+OBJECTS += $(OBJDIR)/EditorWindow.o
 
-OBJECTS += $(OBJDIR)/PMLEWindow.o
-GENERATED += $(OBJDIR)/PMLEWindow.o
 
-OBJECTS += $(OBJDIR)/TexHand.o
-GENERATED += $(OBJDIR)/TexHand.o
+
 
 	# Rules
 # #############################################
@@ -171,22 +170,18 @@ endif
 
 #FILE RULES
 ###################################
-SRC_FOLDER = ../../proj/PostMasterLevelEditor
-GLOBAL_INCLUDE += $(SRC_FOLDER)/include
+SRC_FOLDER = ../../proj/TetoEditor
+
 
 $(OBJDIR)/main.o: $(SRC_FOLDER)/main.cpp
 		@echo "$(notdir $<)"
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(MAIN_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 	
-$(OBJDIR)/PMLEWindow.o: $(SRC_FOLDER)/PMLEWindow.cpp
+$(OBJDIR)/EditorWindow.o: $(SRC_FOLDER)/window/EditorWindow.cpp
 	@echo "$(notdir $<)"
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(MAIN_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-	
-$(OBJDIR)/TexHand.o: $(SRC_FOLDER)/texture/TexHand.cpp
-	@echo "$(notdir $<)"
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(TEX_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-	
-	
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+
+
 -include $(OBJECTS:%.o=%.d)
 
 ifneq (,$(PCH))

@@ -1,4 +1,4 @@
-#include "include/core/Texture/TextureRegistry.hpp"
+#include "core/Texture/TextureRegistry.hpp"
 
 template <typename K>
 teto::TextureRegistry<K>::TextureRegistry()

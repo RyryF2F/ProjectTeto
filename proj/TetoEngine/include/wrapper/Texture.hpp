@@ -10,13 +10,13 @@ namespace teto
     class Texture
     {
         public:
-            Texture(Texture2D rayTex) : _texture(rayTex){};
-            ~Texture(){ UnloadTexture(_texture);};
+            Texture(Texture2D rayTex);
+            ~Texture();
 
             Texture(const Texture&) = delete;
             Texture& operator = (const Texture&) = delete;
 
-            Texture2D& get(){ return _texture; };
+            Texture2D& get();
 
 
         private:

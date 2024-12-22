@@ -1,3 +1,4 @@
+#pragma once
 /**
  * base for serialization, essentially meaning that any class derived has instructions for saving.
  */

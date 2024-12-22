@@ -1,8 +1,7 @@
 #pragma once
 
-
-#include "../../base/Registry.hpp"
-#include "../../wrapper/Texture.hpp"
+#include "base/Registry.hpp"
+#include "wrapper/Texture.hpp"
 
 namespace teto
 {
@@ -22,6 +21,9 @@ namespace teto
         void unload(K ind);
     };
 
-    typedef TextureRegistry<int> IndexedTextureRegistry;
-    typedef TextureRegistry<std::string> KeyedTextureRegistry;
+    // typedef TextureRegistry<int> IndexedTextureRegistry;
+    // typedef TextureRegistry<std::string> KeyedTextureRegistry;
+
+    using IndexedTextureRegistry = TextureRegistry<int>;
+    using KeyedTextureRegistry = TextureRegistry<std::string>;
 }

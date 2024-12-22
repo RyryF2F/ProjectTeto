@@ -52,7 +52,7 @@ else
 endif
 
 # Projects
-PROJECTS := raylib TetoEngine TetoEditor TetoWarGame
+PROJECTS := raylib TetoEngine TetoEditor #TetoWarGame
 
 #def
 .PHONY: all clean help $(PROJECTS)
@@ -71,7 +71,7 @@ ifneq (,$(tetoengine_config))
 	@${MAKE} --no-print-directory -C build/build_files -f TetoEngine.make config=$(tetoengine_config)
 endif
 
-TetoEditor: TetoEngine
+TetoEditor: TetoEngine raylib
 ifneq (,$(tetoeditor_config))
 	@echo "==== Building TetoEditor ($(tetoeditor_config)) ===="
 	@${MAKE} --no-print-directory -C build/build_files -f TetoEditor.make config=$(tetoeditor_config)
@@ -85,7 +85,7 @@ endif
 
 #def
 clean:
-	@${MAKE} --no-print-directory -C build/build_files -f TetoWarGame.make clean
+#	@${MAKE} --no-print-directory -C build/build_files -f TetoWarGame.make clean
 	@${MAKE} --no-print-directory -C build/build_files -f TetoEditor.make clean
 	@${MAKE} --no-print-directory -C build/build_files -f TetoEngine.make clean
 	@${MAKE} --no-print-directory -C build/build_files -f raylib.make clean

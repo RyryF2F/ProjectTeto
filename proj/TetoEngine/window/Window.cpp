@@ -1,4 +1,4 @@
-#include "include/window/Window.hpp"
+#include "window/Window.hpp"
 
 teto::Window::Window()
 {
