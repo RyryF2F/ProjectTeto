@@ -1,7 +1,7 @@
 #pragma once
 
-#include "window/Window.hpp"
-#include "core/Texture/TextureRegistry.hpp"
+#include "TetoEngine/Window.hpp"
+#include "TetoEngine/TextureRegistry.hpp"
 
 namespace tetoedit
 {

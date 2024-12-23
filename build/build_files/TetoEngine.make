@@ -16,7 +16,8 @@ ifeq (.exe,$(findstring .exe,$(ComSpec)))
 	SHELLTYPE := msdos
 endif
 
-# CONFIGURATIONS
+# Configurations
+# #############################################						   
 
 RESCOMP = windres
 INCLUDES += -I../../proj/TetoEngine/include -I../../include -I../external/raylib-master/src -I../external/raylib-master/src/external -I../external/raylib-master/src/external/glfw/include
@@ -25,7 +26,7 @@ ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
 LIBS +=
 LDDEPS +=
-LINKCMD = $(AR) -rcs "$@" $(OBJECTS)
+LINKCMD = $(AR) -rcs "$@" $(OBJECTS) 
 define PREBUILDCMDS
 endef
 define PRELINKCMDS
@@ -100,21 +101,20 @@ LIBS+= ../../bin/Release/raylib.lib
 LDDEPS += ../../bin/Release/raylib.lib
 
 endif
-
 # File sets
 # #############################################
 
 GENERATED :=
 OBJECTS :=
 
-GENERATED += $(OBJDIR)/TextureRegistry.o
-GENERATED += $(OBJDIR)/Registry.o
+#GENERATED += $(OBJDIR)/Registry.o
+GENERATED += $(OBJDIR)/Wrappers.o
+#GENERATED += $(OBJDIR)/TextureRegistry.o
 GENERATED += $(OBJDIR)/Window.o
-GENERATED += $(OBJDIR)/Texture.o
-OBJECTS += $(OBJDIR)/TextureRegistry.o
-OBJECTS += $(OBJDIR)/Registry.o
+#OBJECTS += $(OBJDIR)/Registry.o
+OBJECTS += $(OBJDIR)/Wrappers.o
+#OBJECTS += $(OBJDIR)/TextureRegistry.o
 OBJECTS += $(OBJDIR)/Window.o
-OBJECTS += $(OBJDIR)/Texture.o
 
 # Rules
 # #############################################
@@ -162,7 +162,7 @@ ifneq (,$(PCH))
 $(OBJECTS): $(GCH) | $(PCH_PLACEHOLDER)
 $(GCH): $(PCH) | prebuild
 	@echo $(notdir $<)
-	$(SILENT) $(CXX) -x c-header $(ALL_CXXFLAGS) -o "$@" -MF "$(@:%.gch=%.d)" -c "$<"
+	$(SILENT) $(CXX) -x c++-header $(ALL_CXXFLAGS) -o "$@" -MF "$(@:%.gch=%.d)" -c "$<"
 $(PCH_PLACEHOLDER): $(GCH) | $(OBJDIR)
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) touch "$@"
@@ -178,19 +178,19 @@ endif
 SRC_FOLDER = ../../proj/TetoEngine
 
 #empty but put here
-$(OBJDIR)/Window.o: $(SRC_FOLDER)/window/Window.cpp
-	@echo "$(notdir $<)"
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-
-$(OBJDIR)/Texture.o: $(SRC_FOLDER)/wrapper/Texture.cpp
-	@echo "$(notdir $<)"
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-
 $(OBJDIR)/Registry.o: $(SRC_FOLDER)/base/Registry.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 	
-$(OBJDIR)/TextureRegistry.o: $(SRC_FOLDER)/core/Texture/TextureRegistry.cpp
+$(OBJDIR)/Wrappers.o: $(SRC_FOLDER)/Wrappers.cpp
+	@echo "$(notdir $<)"
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+	
+##$(OBJDIR)/TextureRegistry.o: $(SRC_FOLDER)/core/registry/TextureRegistry.cpp
+##	@echo "$(notdir $<)"
+##	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+
+$(OBJDIR)/Window.o: $(SRC_FOLDER)/core/window/Window.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 	
