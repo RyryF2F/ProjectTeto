@@ -109,8 +109,10 @@ OBJECTS :=
 
 GENERATED += $(OBJDIR)/Wrappers.o
 GENERATED += $(OBJDIR)/Window.o
+GENERATED += $(OBJDIR)/Frame.o
 OBJECTS += $(OBJDIR)/Wrappers.o
 OBJECTS += $(OBJDIR)/Window.o
+OBJECTS += $(OBJDIR)/Frame.o
 
 # Rules
 # #############################################
@@ -186,7 +188,11 @@ $(OBJDIR)/Wrappers.o: $(SRC_FOLDER)/Wrappers.cpp
 $(OBJDIR)/Window.o: $(SRC_FOLDER)/core/window/Window.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-	
+
+$(OBJDIR)/Frame.o: $(SRC_FOLDER)/core/window/Frame.cpp
+	@echo "$(notdir $<)"
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+
 -include $(OBJECTS:%.o=%.d)
 ifneq (,$(PCH))
   -include $(PCH_PLACEHOLDER).d
