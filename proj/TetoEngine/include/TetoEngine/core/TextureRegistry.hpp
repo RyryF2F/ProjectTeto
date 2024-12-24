@@ -1,6 +1,6 @@
 #pragma once
 
-#include "TetoEngine/Registry.hpp"
+#include "TetoEngine/base/Registry.hpp"
 #include "TetoEngine/Wrappers.hpp"
 #include <string>
 
@@ -29,6 +29,7 @@ namespace teto
     using KeyedTextureRegistry = TextureRegistry<std::string>;
 
 }
+
 template <typename K>
 teto::TextureRegistry<K>::TextureRegistry()
 {

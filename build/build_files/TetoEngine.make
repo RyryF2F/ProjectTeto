@@ -107,13 +107,9 @@ endif
 GENERATED :=
 OBJECTS :=
 
-#GENERATED += $(OBJDIR)/Registry.o
 GENERATED += $(OBJDIR)/Wrappers.o
-#GENERATED += $(OBJDIR)/TextureRegistry.o
 GENERATED += $(OBJDIR)/Window.o
-#OBJECTS += $(OBJDIR)/Registry.o
 OBJECTS += $(OBJDIR)/Wrappers.o
-#OBJECTS += $(OBJDIR)/TextureRegistry.o
 OBJECTS += $(OBJDIR)/Window.o
 
 # Rules
@@ -186,9 +182,6 @@ $(OBJDIR)/Wrappers.o: $(SRC_FOLDER)/Wrappers.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 	
-##$(OBJDIR)/TextureRegistry.o: $(SRC_FOLDER)/core/registry/TextureRegistry.cpp
-##	@echo "$(notdir $<)"
-##	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 
 $(OBJDIR)/Window.o: $(SRC_FOLDER)/core/window/Window.cpp
 	@echo "$(notdir $<)"
