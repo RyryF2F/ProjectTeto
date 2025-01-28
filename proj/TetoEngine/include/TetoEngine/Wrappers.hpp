@@ -2,6 +2,10 @@
 
 #include "raylib.h"
 
+/**
+ * Custom wrappers for C classes within raylib.
+ * Doing this for myself, and for better memory control.
+ */
 namespace teto
 {
 
@@ -38,6 +42,42 @@ namespace teto
             ::Mesh& get();
         private:
             ::Mesh _mesh = { 0 };
+    };
+
+    /**
+     * Wrapper for raylib Material
+     */
+    class Material
+    {
+        public:
+            Material(::Material rayMaterial);
+            ~Material();
+
+            Material(const Material&) = delete;
+            Material& operator = (const Mesh&) = delete;
+
+            ::Material& get();
+
+            private:
+                ::Material _material = { 0 };
+    };
+
+    /**
+     * Wrapper for raylib Model
+     */
+    class Model
+    {
+        public:
+            Model(::Model rayModel);
+            ~Model();
+
+            Model(const Model&) = delete;
+            Model& operator = (const Model&) = delete;
+
+            ::Model& get();
+
+            private:
+                ::Model _model = { 0 };
     };
 
 }

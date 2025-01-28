@@ -51,3 +51,9 @@ void teto::TextFrame::setText(std::string const& text)
 {
     _text = text;
 }
+
+void teto::TextFrame::draw()
+{
+    Frame::draw();
+    //DrawText(this->_text.c_str());
+}

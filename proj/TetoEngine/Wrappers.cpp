@@ -37,3 +37,41 @@ teto::Mesh::~Mesh()
 {
     return _mesh;
 }
+
+/**
+ * Material
+ */
+teto::Material::Material(::Material rayMaterial) : _material(rayMaterial)
+{
+
+};
+
+teto::Material::~Material()
+{
+    UnloadMaterial(_material);
+    //auto garbage
+}
+
+::Material& teto::Material::get()
+{
+    return _material;
+}
+
+/**
+ * Model
+ */
+teto::Model::Model(::Model rayModel) : _model(rayModel)
+{
+
+};
+
+teto::Model::~Model()
+{
+    UnloadModel(_model);
+    //auto garbage
+}
+
+::Model& teto::Model::get()
+{
+    return _model;
+}

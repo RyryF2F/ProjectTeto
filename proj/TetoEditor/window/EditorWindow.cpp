@@ -25,7 +25,6 @@ int tetoedit::EditorWindow::onDraw()
 {
     
     // frame.draw();
-    DrawSphere(Vector3{500,500,0}, 300, WHITE);
     return 0;
 }
 

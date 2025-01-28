@@ -33,6 +33,8 @@ namespace teto
             TextFrame(Vector2 pos, Vector2 size, std::string const& text);
 
             void setText(std::string const& text);
+
+            void draw() override;
         private:
             std::string _text;
     };
