@@ -4,6 +4,7 @@
 #include "TetoEngine/Wrappers.hpp"
 #include <string>
 
+
 namespace teto
 {
 
@@ -17,13 +18,17 @@ namespace teto
 
         void clear() override;
 
+        /**
+         * For loading raylib textures in
+         */
         void load(K key, ::Texture rayTex, bool waitTillReady = false);
-        void add(K key, Texture val) override {};
+
+        /**
+         * For moving already defined Teto textures in
+         */
+        void add(K key, Texture tex) override;
         void unload(K ind);
     };
-
-    // typedef TextureRegistry<int> IndexedTextureRegistry;
-    // typedef TextureRegistry<std::string> KeyedTextureRegistry;
 
     using IndexedTextureRegistry = TextureRegistry<int>;
     using KeyedTextureRegistry = TextureRegistry<std::string>;
@@ -56,10 +61,16 @@ void teto::TextureRegistry<K>::load(K key, ::Texture rayTex, bool waitTillReady)
     if (waitTillReady)
     {
         TraceLog(LOG_INFO, "Waiting for texture load validation");
-        while (!(IsTextureValid(this->registry.at(key).get())))
+        while (!(IsTextureValid(this->registry.at(key).get()))) //yuck
         {
 
         }
         TraceLog(LOG_INFO, "Texture Loaded");
     }
+}
+
+template <typename K>
+void teto::TextureRegistry<K>::add(K key, Texture tex)
+{
+    this->load(key, tex.get(), false);
 }
