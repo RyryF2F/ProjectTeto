@@ -24,10 +24,10 @@ namespace teto
         void load(K key, ::Texture rayTex, bool waitTillReady = false);
 
         /**
-         * For moving already defined Teto textures in
+         * For moving already defined Teto textures in, not working currently due to deleted functions related to mem management
          */
         void add(K key, Texture tex) override;
-        void unload(K ind);
+        void unload(K key);
     };
 
     using IndexedTextureRegistry = TextureRegistry<int>;
@@ -69,8 +69,14 @@ void teto::TextureRegistry<K>::load(K key, ::Texture rayTex, bool waitTillReady)
     }
 }
 
+template<typename K>
+void teto::TextureRegistry<K>::unload(K key)
+{
+    this->registry.erase(key);
+}
+
 template <typename K>
 void teto::TextureRegistry<K>::add(K key, Texture tex)
 {
-    this->load(key, tex.get(), false);
+    this->load(key, tex.get(), false); //uh oh
 }

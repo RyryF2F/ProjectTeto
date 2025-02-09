@@ -4,6 +4,7 @@
 #include "TetoEngine/core/registry/TextureRegistry.hpp"
 #include "resource_dir.h" //extern c
 // #include "TetoEngine/include/TetoEngine/core/window/Frame.hpp"
+#include <iostream>
 
 namespace tetoedit
 {

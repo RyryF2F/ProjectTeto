@@ -13,8 +13,9 @@ tetoedit::EditorWindow::~EditorWindow()
 void tetoedit::EditorWindow::preRun()
 {
     SearchAndSetResourceDir("te_resources");
-
+    //teto::Texture tex = Texture(LoadTexture("temp.png"));
     TexReg.load("temp", LoadTexture("temp.png"), true);
+    
 
     // frame.setBackground(&texHand.getRegistry().get(pmle::EDITOR_TEXTURES::TEX_DEF_BACKGROUND));
     
@@ -27,9 +28,9 @@ void tetoedit::EditorWindow::preRun()
 
 int tetoedit::EditorWindow::onDraw()
 {
-    
-    // frame.draw();
     DrawTexture(TexReg.get("temp").get(), 0, 0, WHITE);
+
+
     return 0;
 }
 
