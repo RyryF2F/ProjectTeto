@@ -2,7 +2,7 @@
 # Project Teto
 
 
-This project and repository is a video game project I am working on to personally further my knowledge of C and C++. Focusing heavily on both code management, and modern (C++17) CPP development.  This is **not a finished a product**. 
+This project and repository is a video game project I am working on to personally further my knowledge of C and C++. Focusing heavily on both code management, and modern (C++20) CPP development.  This is **not a finished a product**. 
 
 ## Build Requirements
 This project uses **Raylib** as a core library. This may change, however for ease of use I will be using Raylib, and it's associated modules, instead of making OpenGL/ANGLE calls directly. This helps me ensure compatability will be covered with little work. 
