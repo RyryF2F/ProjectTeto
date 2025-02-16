@@ -25,7 +25,7 @@ void tetoedit::EditorWindow::preRun()
     // frame.setPos(test);
     // frame.setSize(test);
 }
-Camera
+
 int tetoedit::EditorWindow::onDraw()
 {
     DrawTexture(TexReg.get("temp").get(), 0, 0, WHITE);

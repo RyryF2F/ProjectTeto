@@ -13,7 +13,12 @@
  */
 namespace teto
 {
-    template <int64_t tps = 20>
+
+    template <int32_t tps>
+    using tps_duration = std::chrono::duration<int32_t, std::ratio<1,tps>>;
+
+
+    template <int32_t tps = 20>
     class Ticker
     {
         public:
@@ -21,7 +26,7 @@ namespace teto
             typedef std::function<void()> on_tick_t;
 
             //cpp td
-            using tps_t = std::chrono::duration<int64_t, std::ratio<tps,60>>;
+            //using tps_t = std::chrono::duration<int, std::ratio<tps,60>>;
 
             //constructors
             Ticker (std::function<void()> onTick) : _onTick(onTick) , _isRunning(false) {}
@@ -31,19 +36,19 @@ namespace teto
 
             void start()
             {
-                if (_running) return;
+                if (_isRunning) return;
 
-                _running = true;
+                _isRunning = true;
                 std::thread run(&Ticker::timer_loop, this);
                 run.detach();
             }
 
             void stop()
             {
-                _running = false;
+                _isRunning = false;
             }
 
-            void setTPS(int64_t newTPS)
+            void setTPS(int newTPS)
             {
                 _tickIntervalMutex.lock();
                 tps = newTPS;
@@ -69,5 +74,8 @@ namespace teto
             std::atomic<bool> _isRunning;
             on_tick_t _onTick;
             std::mutex _tickIntervalMutex;
+            //int64_t _tpsd;
+            tps_duration<tps> _tickInterval;
+            
     };
 }

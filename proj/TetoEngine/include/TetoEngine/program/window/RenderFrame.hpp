@@ -14,11 +14,14 @@ namespace teto
 {
     class RenderFrame : public Frame
     {
-        using Frame::Frame;
+        //using Frame::Frame;
+
+        RenderFrame(Vector2 pos, Vector2 size);
 
         void draw() override;
 
         void onTick();
+        
 
         private:
             Camera _camera;
