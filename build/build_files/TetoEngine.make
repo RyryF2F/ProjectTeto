@@ -22,7 +22,7 @@ endif
 RESCOMP = windres
 INCLUDES += -I../../proj/TetoEngine/include -I../../include -I../external/raylib-master/src -I../external/raylib-master/src/external -I../external/raylib-master/src/external/glfw/include
 FORCE_INCLUDE +=
-ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
+ALL_CPPFLAGS += $(CPPFLAGS) -std=c++20 -MD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
 LIBS +=
 LDDEPS +=
@@ -110,9 +110,11 @@ OBJECTS :=
 GENERATED += $(OBJDIR)/Wrappers.o
 GENERATED += $(OBJDIR)/Window.o
 GENERATED += $(OBJDIR)/Frame.o
+GENERATED += $(OBJDIR)/RenderFrame.o
 OBJECTS += $(OBJDIR)/Wrappers.o
 OBJECTS += $(OBJDIR)/Window.o
 OBJECTS += $(OBJDIR)/Frame.o
+OBJECTS += $(OBJDIR)/RenderFrame.o
 
 # Rules
 # #############################################
@@ -176,23 +178,35 @@ endif
 SRC_FOLDER = ../../proj/TetoEngine
 
 #empty but put here
-$(OBJDIR)/Registry.o: $(SRC_FOLDER)/base/Registry.cpp
-	@echo "$(notdir $<)"
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-	
+
+
+#### BASE #####	
 $(OBJDIR)/Wrappers.o: $(SRC_FOLDER)/Wrappers.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 	
+### PROGRAM ###
+##  $(OBJDIR)/Registry.o: $(SRC_FOLDER)/base/Registry.cpp
+##	@echo "$(notdir $<)"
+##	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 
-$(OBJDIR)/Window.o: $(SRC_FOLDER)/core/window/Window.cpp
+$(OBJDIR)/Window.o: $(SRC_FOLDER)/program/window/Window.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 
-$(OBJDIR)/Frame.o: $(SRC_FOLDER)/core/window/Frame.cpp
+$(OBJDIR)/Frame.o: $(SRC_FOLDER)/program/window/Frame.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 
+$(OBJDIR)/RenderFrame.o: $(SRC_FOLDER)/program/window/RenderFrame.cpp
+	@echo "$(notdir $<)"
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+	
+
+### CLIENT ###
+
+
+## EOF ###
 -include $(OBJECTS:%.o=%.d)
 ifneq (,$(PCH))
   -include $(PCH_PLACEHOLDER).d
