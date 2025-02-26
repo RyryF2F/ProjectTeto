@@ -108,13 +108,13 @@ GENERATED :=
 OBJECTS :=
 
 GENERATED += $(OBJDIR)/Wrappers.o
+GENERATED += $(OBJDIR)/Tickable.o
 GENERATED += $(OBJDIR)/Window.o
 GENERATED += $(OBJDIR)/Frame.o
-GENERATED += $(OBJDIR)/RenderFrame.o
 OBJECTS += $(OBJDIR)/Wrappers.o
+OBJECTS += $(OBJDIR)/Tickable.o
 OBJECTS += $(OBJDIR)/Window.o
 OBJECTS += $(OBJDIR)/Frame.o
-OBJECTS += $(OBJDIR)/RenderFrame.o
 
 # Rules
 # #############################################
@@ -184,12 +184,11 @@ SRC_FOLDER = ../../proj/TetoEngine
 $(OBJDIR)/Wrappers.o: $(SRC_FOLDER)/Wrappers.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-	
-### PROGRAM ###
-##  $(OBJDIR)/Registry.o: $(SRC_FOLDER)/base/Registry.cpp
-##	@echo "$(notdir $<)"
-##	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 
+$(OBJDIR)/Tickable.o: $(SRC_FOLDER)/base/Tickable.cpp
+	@echo "$(notdir $<)"
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+	
 $(OBJDIR)/Window.o: $(SRC_FOLDER)/program/window/Window.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
@@ -197,11 +196,6 @@ $(OBJDIR)/Window.o: $(SRC_FOLDER)/program/window/Window.cpp
 $(OBJDIR)/Frame.o: $(SRC_FOLDER)/program/window/Frame.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-
-$(OBJDIR)/RenderFrame.o: $(SRC_FOLDER)/program/window/RenderFrame.cpp
-	@echo "$(notdir $<)"
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-	
 
 ### CLIENT ###
 

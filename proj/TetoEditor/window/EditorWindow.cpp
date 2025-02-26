@@ -2,12 +2,17 @@
 
 tetoedit::EditorWindow::EditorWindow()
 {
+    _renderFrame.setSize(Vector2{100,100});
+    _renderFrame.setPos(Vector2{0,0});
+    std::chrono::duration<int, std::milli> test(50);
 
+    _renderFrame.setTickInterval(test);
+    _renderFrame.startTicking();
 }
 
 tetoedit::EditorWindow::~EditorWindow()
 {
-
+    _renderFrame.stopTicking();
 }
 
 void tetoedit::EditorWindow::preRun()
@@ -29,13 +34,14 @@ void tetoedit::EditorWindow::preRun()
 int tetoedit::EditorWindow::onDraw()
 {
     DrawTexture(TexReg.get("temp").get(), 0, 0, WHITE);
-
+    _renderFrame.testin();
 
     return 0;
 }
 
 int tetoedit::EditorWindow::onUpdate()
 {
+
     return 0;
 }
 

@@ -35,7 +35,7 @@ TARGET = $(TARGETDIR)/TetoEditor.exe
 OBJDIR = obj/x64/Debug/TetoEditor
 DEFINES += -DDEBUG -DPLATFORM_DESKTOP -DGRAPHICS_API_OPENGL_43 -D_WIN32
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -Wshadow -g -std=c99
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -Wshadow -g -std=c++17
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -Wshadow -g -std=c++20
 LIBS += ../../bin/Debug/TetoEngine.lib ../../bin/Debug/raylib.lib -lwinmm -lgdi32
 LDDEPS += ../../bin/Debug/raylib.lib ../../bin/Debug/TetoEngine.lib
 ALL_LDFLAGS += $(LDFLAGS) -L../../bin/Debug -L/usr/lib64 -m64
@@ -46,7 +46,7 @@ TARGET = $(TARGETDIR)/TetoEditor.exe
 OBJDIR = obj/x86/Debug/TetoEditor
 DEFINES += -DDEBUG -DPLATFORM_DESKTOP -DGRAPHICS_API_OPENGL_43 -D_WIN32
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -Wshadow -g -std=c99
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -Wshadow -g -std=c++17
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -Wshadow -g -std=c++20
 LIBS += ../../bin/Debug/TetoEngine.lib ../../bin/Debug/raylib.lib -lwinmm -lgdi32
 LDDEPS += ../../bin/Debug/raylib.lib ../../bin/Debug/TetoEngine.lib
 ALL_LDFLAGS += $(LDFLAGS) -L../../bin/Debug -L/usr/lib32 -m32
@@ -57,7 +57,7 @@ TARGET = $(TARGETDIR)/TetoEditor.exe
 OBJDIR = obj/ARM64/Debug/TetoEditor
 DEFINES += -DDEBUG -DPLATFORM_DESKTOP -DGRAPHICS_API_OPENGL_43 -D_WIN32
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -Wshadow -g -std=c99
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -Wshadow -g -std=c++17
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -Wshadow -g -std=c++20
 LIBS += ../../bin/Debug/TetoEngine.lib ../../bin/Debug/raylib.lib -lwinmm -lgdi32
 LDDEPS += ../../bin/Debug/raylib.lib ../../bin/Debug/TetoEngine.lib
 ALL_LDFLAGS += $(LDFLAGS) -L../../bin/Debug
@@ -68,7 +68,7 @@ TARGET = $(TARGETDIR)/TetoEditor.exe
 OBJDIR = obj/x64/Release/TetoEditor
 DEFINES += -DNDEBUG -DPLATFORM_DESKTOP -DGRAPHICS_API_OPENGL_43 -D_WIN32
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -Wshadow -O2 -std=c99
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -Wshadow -O2 -std=c++17
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -Wshadow -O2 -std=c++20
 LIBS += ../../bin/Release/TetoEngine.lib ../../bin/Release/raylib.lib -lwinmm -lgdi32
 LDDEPS += ../../bin/Release/raylib.lib ../../bin/Release/TetoEngine.lib
 ALL_LDFLAGS += $(LDFLAGS) -L../../bin/Release -L/usr/lib64 -m64 -s
@@ -79,7 +79,7 @@ TARGET = $(TARGETDIR)/TetoEditor.exe
 OBJDIR = obj/x86/Release/TetoEditor
 DEFINES += -DNDEBUG -DPLATFORM_DESKTOP -DGRAPHICS_API_OPENGL_43 -D_WIN32
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -Wshadow -O2 -std=c99
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -Wshadow -O2 -std=c++17
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -Wshadow -O2 -std=c++20
 LIBS += ../../bin/Release/TetoEngine.lib ../../bin/Release/raylib.lib -lwinmm -lgdi32
 LDDEPS += ../../bin/Release/raylib.lib ../../bin/Release/TetoEngine.lib
 ALL_LDFLAGS += $(LDFLAGS) -L../../bin/Release -L/usr/lib32 -m32 -s
@@ -90,7 +90,7 @@ TARGET = $(TARGETDIR)/TetoEditor.exe
 OBJDIR = obj/ARM64/Release/TetoEditor
 DEFINES += -DNDEBUG -DPLATFORM_DESKTOP -DGRAPHICS_API_OPENGL_43 -D_WIN32
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -Wshadow -O2 -std=c99
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -Wshadow -O2 -std=c++17
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -Wshadow -O2 -std=c++20
 LIBS += ../../bin/Release/TetoEngine.lib ../../bin/Release/raylib.lib -lwinmm -lgdi32
 LDDEPS += ../../bin/Release/raylib.lib ../../bin/Release/TetoEngine.lib
 ALL_LDFLAGS += $(LDFLAGS) -L../../bin/Release -s
@@ -102,10 +102,11 @@ OBJECTS :=
 GENERATED :=
 
 GENERATED += $(OBJDIR)/main.o
+GENERATED += $(OBJDIR)/EditorRenderFrame.o
 GENERATED += $(OBJDIR)/EditorWindow.o
 OBJECTS += $(OBJDIR)/main.o
+OBJECTS += $(OBJDIR)/EditorRenderFrame.o
 OBJECTS += $(OBJDIR)/EditorWindow.o
-
 
 
 
@@ -176,10 +177,13 @@ $(OBJDIR)/main.o: $(SRC_FOLDER)/main.cpp
 		@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 	
+$(OBJDIR)/EditorRenderFrame.o: $(SRC_FOLDER)/window/EditorRenderFrame.cpp
+	@echo "$(notdir $<)"
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+	
 $(OBJDIR)/EditorWindow.o: $(SRC_FOLDER)/window/EditorWindow.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-
 
 -include $(OBJECTS:%.o=%.d)
 

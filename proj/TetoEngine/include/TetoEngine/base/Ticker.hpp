@@ -31,7 +31,7 @@ namespace teto
 
             void stop();
 
-            void setOnTick(std::function<void(void)> onTick);
+            void setOnTick(const std::function<void()>& onTick);
 
             void setTPS(tick_interval_t newTPS);
 
@@ -46,63 +46,4 @@ namespace teto
             std::atomic<bool> _isRunning;
             std::function<void(void)> _onTick; //ontick function
     };
-
-    Ticker::Ticker()
-    {
-
-    }
-
-    Ticker::~Ticker()
-    {
-
-    }
-
-    void Ticker::start()
-    {
-        if (_isRunning) return;
-
-        _isRunning = true;
-        std::thread run(&Ticker::timer_loop, this);
-        run.detach();
-    }
-
-    void Ticker::stop()
-    {
-        _isRunning = false;
-    }
-
-    void Ticker::setTPS(tick_interval_t newTPS)
-    {
-        _tickIntervalMutex.lock();
-        _tickInterval = newTPS;
-        _tickIntervalMutex.unlock();
-    }
-
-    void Ticker::timer_loop()
-    {
-        _tickIntervalMutex.lock(); //lock
-        tick_interval_t tickInterval = _tickInterval; //safe
-        while (_isRunning)
-        {
-            std::thread run(_onTick); //tick execution
-            run.detach(); //bye
-
-            std::this_thread::sleep_for(tickInterval);
-            
-        }
-
-        _tickIntervalMutex.unlock(); //unlock
-    }
-
-    void Ticker::setOnTick(std::function<void(void)> onTick)
-    {
-        if (_isRunning)
-        {
-            stop();
-        }
-
-        _tickIntervalMutex.lock();
-        _onTick = onTick;
-        _tickIntervalMutex.unlock();
-    }
 }

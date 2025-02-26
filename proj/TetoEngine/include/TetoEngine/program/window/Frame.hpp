@@ -1,41 +1,35 @@
 #pragma once
 
-#include "TetoEngine/base/Drawable.hpp"
-#include "TetoEngine/Wrappers.hpp"
 #include "raylib.h"
-#include <string>
+#include "TetoEngine/Wrappers.hpp"
+#include "TetoEngine/base/Tickable.hpp"
 
 namespace teto
 {
-    class Frame : public Drawable
+    class Frame
     {
         public:
             Frame();
             Frame(Vector2 pos, Vector2 size);
-            Frame(Vector2 pos, Vector2 size, teto::Texture* background);
 
             void setPos(Vector2 const& pos);
             void setSize(Vector2 const& size);
-            void setBackground(teto::Texture* background);
-
-            void draw() override;
-
+            
         private:
             Vector2 _pos;
             Vector2 _size;
-            teto::Texture* _background;
     };
 
-    class TextFrame : public Frame
+    class RenderFrame : public Frame, public Tickable
     {
         public:
-            using Frame::Frame;
-            TextFrame(Vector2 pos, Vector2 size, std::string const& text);
+            RenderFrame();
+            RenderFrame(Vector2 pos, Vector2 size);
 
-            void setText(std::string const& text);
+            void onTick() override;
 
-            void draw() override;
         private:
-            std::string _text;
+            Camera _camera;
+
     };
 }

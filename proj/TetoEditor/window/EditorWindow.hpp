@@ -3,8 +3,8 @@
 #include "TetoEngine/program/window/Window.hpp"
 #include "TetoEngine/program/registry/TextureRegistry.hpp"
 #include "resource_dir.h" //extern c
-// #include "TetoEngine/include/TetoEngine/core/window/Frame.hpp"
 #include "TetoEngine/base/Ticker.hpp"
+#include "EditorRenderFrame.hpp"
 
 #include <iostream>
 
@@ -24,5 +24,6 @@ namespace tetoedit
 
         private:
             teto::KeyedTextureRegistry TexReg;
+            tetoedit::EditorRenderFrame _renderFrame;
     };
 }
